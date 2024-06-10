@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { FilePenLine } from "lucide-react";
-
+import { API_URL } from "@/constants/constants";
 export function EditTask({ onTaskAdded, data }: any) {
     const [title, setTitle] = useState(data.title);
     const [description, setDescription] = useState(data.description);
@@ -35,13 +35,10 @@ export function EditTask({ onTaskAdded, data }: any) {
         // }
         //make a patch request to update the task
         try {
-            const response = await axios.patch(
-                `http://localhost:5050/record/${data._id}`,
-                {
-                    title: title,
-                    description: description,
-                }
-            );
+            const response = await axios.patch(`${API_URL}/${data._id}`, {
+                title: title,
+                description: description,
+            });
             console.log(response.data);
             onTaskAdded(); // Call the callback function
         } catch (error) {

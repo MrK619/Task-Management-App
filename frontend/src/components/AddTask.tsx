@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "axios";
+import { API_URL } from "@/constants/constants";
 
 export function AddTask({ onTaskAdded }: any) {
     const [title, setTitle] = useState("");
@@ -23,12 +24,14 @@ export function AddTask({ onTaskAdded }: any) {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:5050/record", {
+            const response = await axios.post(API_URL, {
                 title: title,
                 description: description,
             });
             console.log(response.data);
             onTaskAdded(); // Call the callback function
+            setTitle("");
+            setDescription("");
         } catch (error) {
             console.error("Error adding task:", error);
         }

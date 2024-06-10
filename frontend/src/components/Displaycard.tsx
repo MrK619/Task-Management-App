@@ -13,13 +13,14 @@ import {
 } from "@/components/ui/card";
 import { Edit, Trash } from "lucide-react";
 import { EditTask } from "./EditCard";
+import { API_URL } from "@/constants/constants";
 
 export function TaskList() {
     const [tasks, setTasks] = useState([]);
 
     const fetchTasks = async () => {
         try {
-            const response = await axios.get("http://localhost:5050/record");
+            const response = await axios.get(API_URL);
             setTasks(response.data);
         } catch (error) {
             console.error("Error fetching tasks:", error);
@@ -67,7 +68,7 @@ export function TaskList() {
                                     onClick={async () => {
                                         try {
                                             const response = await axios.delete(
-                                                `http://localhost:5050/record/${task._id}`
+                                                `${API_URL}/${task._id}`
                                             );
                                             console.log(response.data);
                                             fetchTasks();
